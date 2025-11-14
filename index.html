@@ -129,11 +129,36 @@
         line-height: 1;
     }
 
-    /* a tartalom (Google Sheets iframe) */
+    /* a tartalom (Google Sheets / Forms iframe) */
     .modal-content {
         flex: 1;
         border: none;
         width: 100%;
+    }
+
+    /* Checklist modal belső gombjai */
+    .checklist-menu {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .checklist-btn {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        background: #f7f7f7;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        transition: 0.2s;
+    }
+
+    .checklist-btn:hover {
+        background: #ececec;
+        transform: translateY(-1px);
     }
 </style>
 
@@ -142,6 +167,7 @@ function soonAlert(label) {
     alert(label + " – funkció hamarosan elérhető.");
 }
 
+/* Beosztás modal */
 function openModal() {
     var bg = document.getElementById("modalBg");
     bg.style.display = "flex";
@@ -150,6 +176,49 @@ function openModal() {
 function closeModal() {
     var bg = document.getElementById("modalBg");
     bg.style.display = "none";
+}
+
+/* Checklist modal */
+function openChecklistModal() {
+    var bg = document.getElementById("checklistModalBg");
+    var menu = document.getElementById("checklistMenu");
+    var frame = document.getElementById("checklistFrame");
+
+    // induláskor: menü látszik, iframe rejtve
+    menu.style.display = "flex";
+    frame.style.display = "none";
+    frame.src = ""; // ürítjük, hogy ne maradjon benne régi kérdőív
+
+    bg.style.display = "flex";
+}
+
+function closeChecklistModal() {
+    var bg = document.getElementById("checklistModalBg");
+    bg.style.display = "none";
+}
+
+/* Checklist – kérdőív választása */
+function openChecklistForm(type) {
+    var frame = document.getElementById("checklistFrame");
+    var menu = document.getElementById("checklistMenu");
+    var url = "";
+
+    if (type === "ALS") {
+        url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
+    } else if (type === "BLS1") {
+        url = "https://forms.gle/DC7WjKgj241b6CSz7";
+    } else if (type === "BLS2") {
+        url = "https://forms.gle/iU4PbV9nSBnTboU68";
+    }
+
+    if (!url) {
+        alert("Nincs még beállítva a link ehhez a kérdőívhez.");
+        return;
+    }
+
+    frame.src = url;
+    menu.style.display = "none";
+    frame.style.display = "block";
 }
 </script>
 
@@ -173,8 +242,8 @@ function closeModal() {
             <div class="tile-label">Beosztás kérés</div>
         </div>
 
-        <!-- Checklist -->
-        <div class="tile" onclick="soonAlert('Checklist')">
+        <!-- Checklist – ÚJ MODAL -->
+        <div class="tile" onclick="openChecklistModal()">
             <div class="tile-icon">✅</div>
             <div class="tile-label">Checklist</div>
         </div>
@@ -227,6 +296,32 @@ function closeModal() {
             id="sheetFrame"
             class="modal-content"
             src="https://docs.google.com/spreadsheets/d/1nj7Zyt_qgBCqjYpO3hdsQZaCY2TyQHfg4kgoBIuWsEs/edit?usp=sharing"
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<!-- CHECKLIST MODAL -->
+<div id="checklistModalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Checklist
+            <div class="modal-close" onclick="closeChecklistModal()">×</div>
+        </div>
+
+        <!-- első nézet: 3 gomb -->
+        <div id="checklistMenu" class="checklist-menu">
+            <div class="checklist-btn" onclick="openChecklistForm('ALS')">ALS</div>
+            <div class="checklist-btn" onclick="openChecklistForm('BLS1')">BLS I</div>
+            <div class="checklist-btn" onclick="openChecklistForm('BLS2')">BLS II</div>
+        </div>
+
+        <!-- második nézet: maga a kérdőív -->
+        <iframe 
+            id="checklistFrame"
+            class="modal-content"
+            src=""
+            style="display:none;"
             allowfullscreen>
         </iframe>
     </div>
