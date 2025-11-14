@@ -1092,12 +1092,14 @@ function markRequestSeen() {
 
 // INIT
 document.addEventListener("DOMContentLoaded", function(){
+    
     // AUTO-PIN SKIP
     const pinOK = localStorage.getItem("omsz_pin_verified");
     if(pinOK === "true"){
         const ovl = document.getElementById("pinOverlay");
         if(ovl) ovl.style.display = "none";
     }
+    
     // téma betöltés
     const saved = localStorage.getItem("omsz_theme");
     const prefersDark = window.matchMedia &&
