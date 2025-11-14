@@ -78,13 +78,7 @@
         color: #777;
     }
 
-    @media (max-width: 480px) {
-        h1 {
-            font-size: 22px;
-        }
-    }
-
-    /* MODAL háttér (elsötétített rész) */
+    /* MODAL háttér */
     .modal-bg {
         display: none;
         position: fixed;
@@ -104,7 +98,7 @@
         background: #fff;
         width: 95%;
         max-width: 700px;
-        height: 90%; /* 90% ablakmagasság */
+        height: 90%;
         border-radius: 16px;
         overflow: hidden;
         box-shadow: 0 6px 18px rgba(0,0,0,0.25);
@@ -112,7 +106,7 @@
         flex-direction: column;
     }
 
-    /* felső sáv X gombbal */
+    /* MODAL fejléc */
     .modal-header {
         padding: 10px 14px;
         background: #f4f4f4;
@@ -129,69 +123,70 @@
         line-height: 1;
     }
 
-    /* a tartalom (Google Sheets / Forms / iframe) */
     .modal-content {
         flex: 1;
         border: none;
         width: 100%;
     }
 
-    /* Checklist / gépkönyv modal belső gombjai */
-    .checklist-menu {
+    /* AL menük (Checklist, Kocsik) */
+    .modal-menu {
         padding: 16px;
         display: flex;
         flex-direction: column;
         gap: 10px;
     }
 
-    .checklist-btn {
-        padding: 10px 14px;
+    .menu-btn {
+        padding: 12px;
         border-radius: 10px;
-        border: 1px solid #ddd;
         background: #f7f7f7;
+        border: 1px solid #ddd;
         cursor: pointer;
+        text-align: center;
         font-size: 16px;
         font-weight: 600;
-        text-align: center;
         transition: 0.2s;
     }
 
-    .checklist-btn:hover {
-        background: #ececec;
+    .menu-btn:hover {
+        background: #eee;
         transform: translateY(-1px);
     }
 
-    /* Telefonszám lista a modalban */
+    /* Telefonszám modal */
     .phone-list {
         padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         overflow-y: auto;
     }
 
     .phone-item {
         background: #f7f7f7;
         border-radius: 10px;
-        padding: 10px 14px;
-        text-align: left;
+        padding: 12px;
+        text-align: center;
     }
 
     .phone-name {
-        font-weight: 600;
-        margin-bottom: 2px;
-    }
-
-    .phone-role {
-        font-size: 13px;
-        color: #555;
+        font-weight: 700;
+        font-size: 16px;
         margin-bottom: 4px;
     }
 
+    .phone-role {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 6px;
+    }
+
     .phone-number a {
-        color: #0077cc;
-        font-weight: 600;
+        color: #0059c9;
         text-decoration: none;
+        font-size: 17px;
+        font-weight: bold;
     }
 
     .phone-number a:hover {
@@ -200,138 +195,78 @@
 </style>
 
 <script>
-function soonAlert(label) {
-    alert(label + " – funkció hamarosan elérhető.");
-}
-
-/* Beosztás modal (Google Sheets) */
 function openModal() {
-    var bg = document.getElementById("modalBg");
-    bg.style.display = "flex";
+    document.getElementById("modalBg").style.display = "flex";
 }
-
 function closeModal() {
-    var bg = document.getElementById("modalBg");
-    bg.style.display = "none";
+    document.getElementById("modalBg").style.display = "none";
 }
 
-/* Beosztás KÉRÉS modal (Google Form) */
+/* Beosztás kérés */
 function openRequestModal() {
-    var bg = document.getElementById("requestModalBg");
-    bg.style.display = "flex";
+    document.getElementById("requestModalBg").style.display = "flex";
 }
-
 function closeRequestModal() {
-    var bg = document.getElementById("requestModalBg");
-    bg.style.display = "none";
+    document.getElementById("requestModalBg").style.display = "none";
 }
 
-/* Checklist modal */
+/* Checklist */
 function openChecklistModal() {
-    var bg = document.getElementById("checklistModalBg");
-    var menu = document.getElementById("checklistMenu");
-    var frame = document.getElementById("checklistFrame");
-
-    menu.style.display = "flex";
-    frame.style.display = "none";
-    frame.src = "";
-
-    bg.style.display = "flex";
+    document.getElementById("checklistModalBg").style.display = "flex";
+    document.getElementById("checklistMenu").style.display = "flex";
+    document.getElementById("checklistFrame").style.display = "none";
+    document.getElementById("checklistFrame").src = "";
 }
-
 function closeChecklistModal() {
-    var bg = document.getElementById("checklistModalBg");
-    bg.style.display = "none";
+    document.getElementById("checklistModalBg").style.display = "none";
 }
-
-/* Checklist – kérdőív választása */
 function openChecklistForm(type) {
-    var frame = document.getElementById("checklistFrame");
-    var menu = document.getElementById("checklistMenu");
-    var url = "";
+    let url = "";
+    if (type === "ALS") url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
+    if (type === "BLS1") url = "https://forms.gle/DC7WjKgj241b6CSz7";
+    if (type === "BLS2") url = "https://forms.gle/iU4PbV9nSBnTboU68";
 
-    if (type === "ALS") {
-        url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
-    } else if (type === "BLS1") {
-        url = "https://forms.gle/DC7WjKgj241b6CSz7";
-    } else if (type === "BLS2") {
-        url = "https://forms.gle/iU4PbV9nSBnTboU68";
-    }
-
-    if (!url) {
-        alert("Nincs még beállítva a link ehhez a kérdőívhez.");
-        return;
-    }
-
-    frame.src = url;
-    menu.style.display = "none";
-    frame.style.display = "block";
+    document.getElementById("checklistMenu").style.display = "none";
+    document.getElementById("checklistFrame").style.display = "block";
+    document.getElementById("checklistFrame").src = url;
 }
 
-/* GÉPKOCSI KÖNYV modal */
+/* Gépkocsi könyv */
 function openCarModal() {
-    var bg = document.getElementById("carModalBg");
-    var menu = document.getElementById("carMenu");
-    var frame = document.getElementById("carFrame");
-
-    menu.style.display = "flex";
-    frame.style.display = "none";
-    frame.src = "";
-
-    bg.style.display = "flex";
+    document.getElementById("carModalBg").style.display = "flex";
+    document.getElementById("carMenu").style.display = "flex";
+    document.getElementById("carFrame").style.display = "none";
+    document.getElementById("carFrame").src = "";
 }
-
 function closeCarModal() {
-    var bg = document.getElementById("carModalBg");
-    bg.style.display = "none";
+    document.getElementById("carModalBg").style.display = "none";
 }
-
-/* Gépkönyv – kocsi választása */
 function openCarForm(car) {
-    var frame = document.getElementById("carFrame");
-    var menu = document.getElementById("carMenu");
-    var url = "";
+    let url = "";
+    if (car === "MA00278") url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
+    if (car === "MA1202") url = "https://forms.gle/LwaQnVrVjgJ1xmwZ9";
+    if (car === "MA1081") url = "https://forms.gle/GR18YETWNaJroxsP9";
+    if (car === "MA0825") url = "https://forms.gle/fqv9RG8Atk8BQGMXA";
 
-    if (car === "MA00278") {
-        url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
-    } else if (car === "MA1202") {
-        url = "https://forms.gle/LwaQnVrVjgJ1xmwZ9";
-    } else if (car === "MA1081") {
-        url = "https://forms.gle/GR18YETWNaJroxsP9";
-    } else if (car === "MA0825") {
-        url = "https://forms.gle/fqv9RG8Atk8BQGMXA";
-    }
-
-    if (!url) {
-        alert("Ehhez a kocsihoz nincs link beállítva.");
-        return;
-    }
-
-    frame.src = url;
-    menu.style.display = "none";
-    frame.style.display = "block";
+    document.getElementById("carMenu").style.display = "none";
+    document.getElementById("carFrame").style.display = "block";
+    document.getElementById("carFrame").src = url;
 }
 
-/* TELEFONSZÁMOK modal */
+/* Telefonszámok */
 function openPhoneModal() {
-    var bg = document.getElementById("phoneModalBg");
-    bg.style.display = "flex";
+    document.getElementById("phoneModalBg").style.display = "flex";
 }
-
 function closePhoneModal() {
-    var bg = document.getElementById("phoneModalBg");
-    bg.style.display = "none";
+    document.getElementById("phoneModalBg").style.display = "none";
 }
 
-/* KÓRHÁZAK modal – a korhazak.html-t iframe-ben mutatjuk */
+/* Kórházak modal (iframe) */
 function openHospitalModal() {
-    var bg = document.getElementById("hospitalModalBg");
-    bg.style.display = "flex";
+    document.getElementById("hospitalModalBg").style.display = "flex";
 }
-
 function closeHospitalModal() {
-    var bg = document.getElementById("hospitalModalBg");
-    bg.style.display = "none";
+    document.getElementById("hospitalModalBg").style.display = "none";
 }
 </script>
 
@@ -343,96 +278,76 @@ function closeHospitalModal() {
     <div class="subtitle">Állomás – belső segédalkalmazás</div>
 
     <div class="grid">
-        <!-- Beosztás – MODAL NYITÁS -->
+
         <div class="tile" onclick="openModal()">
             <div class="tile-icon">📅</div>
             <div class="tile-label">Beosztás</div>
         </div>
 
-        <!-- Beosztás kérés – MODAL NYITÁS -->
         <div class="tile" onclick="openRequestModal()">
             <div class="tile-icon">✉️</div>
             <div class="tile-label">Beosztás kérés</div>
         </div>
 
-        <!-- Checklist – MODAL -->
         <div class="tile" onclick="openChecklistModal()">
             <div class="tile-icon">✅</div>
             <div class="tile-label">Checklist</div>
         </div>
 
-        <!-- Gépkocsi könyv – MODAL -->
         <div class="tile" onclick="openCarModal()">
             <div class="tile-icon">🚐</div>
             <div class="tile-label">Gépkocsi könyv</div>
         </div>
 
-        <!-- Kórházak – MODAL (korhazak.html iframe-ben) -->
         <div class="tile" onclick="openHospitalModal()">
             <div class="tile-icon">🏥</div>
             <div class="tile-label">Kórházak</div>
         </div>
 
-        <!-- Telefonszámok – MODAL -->
         <div class="tile" onclick="openPhoneModal()">
             <div class="tile-icon">📞</div>
             <div class="tile-label">Telefonszámok</div>
         </div>
 
-        <!-- Hibajegyek – EGYELŐRE MÉG csak alert,
-             ha lesz form link, ugyanúgy modalba tesszük, mint a többinél -->
-        <div class="tile" onclick="soonAlert('Hibajegyek')">
+        <div class="tile" onclick="alert('Hibajegy kérdőív hamarosan…')">
             <div class="tile-icon">🛠️</div>
             <div class="tile-label">Hibajegyek</div>
         </div>
 
-        <!-- Profil -->
-        <div class="tile" onclick="soonAlert('Profil')">
+        <div class="tile" onclick="alert('Profil funkció hamarosan…')">
             <div class="tile-icon">👤</div>
             <div class="tile-label">Profil</div>
         </div>
     </div>
 
     <div class="footer">
-        Belső használatra • Ha gond van az oldallal, jelezd az állomásvezetőnek.
+        Belső használatra • Probléma esetén jelezd az állomásvezetőnek.
     </div>
 </div>
 
-<!-- BEOSZTÁS MODAL -->
+<!-- BEOSZTÁS -->
 <div id="modalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
-            Beosztás (Google Sheets)
+            Beosztás
             <div class="modal-close" onclick="closeModal()">×</div>
         </div>
-
-        <iframe 
-            id="sheetFrame"
-            class="modal-content"
-            src="https://docs.google.com/spreadsheets/d/1nj7Zyt_qgBCqjYpO3hdsQZaCY2TyQHfg4kgoBIuWsEs/edit?usp=sharing"
-            allowfullscreen>
-        </iframe>
+        <iframe class="modal-content" src="https://docs.google.com/spreadsheets/d/1nj7Zyt_qgBCqjYpO3hdsQZaCY2TyQHfg4kgoBIuWsEs/edit?usp=sharing"></iframe>
     </div>
 </div>
 
-<!-- BEOSZTÁS KÉRÉS MODAL -->
+<!-- BEOSZTÁS KÉRÉS -->
 <div id="requestModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
             Beosztás kérés
             <div class="modal-close" onclick="closeRequestModal()">×</div>
         </div>
-
-        <iframe 
-            id="requestFrame"
-            class="modal-content"
-            src="https://forms.gle/RSADJYQmcaric7Bu7"
-            allowfullscreen>
-        </iframe>
+        <iframe class="modal-content" src="https://forms.gle/RSADJYQmcaric7Bu7"></iframe>
     </div>
 </div>
 
-<!-- CHECKLIST MODAL -->
+<!-- CHECKLIST -->
 <div id="checklistModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
@@ -440,25 +355,17 @@ function closeHospitalModal() {
             <div class="modal-close" onclick="closeChecklistModal()">×</div>
         </div>
 
-        <!-- első nézet: 3 gomb -->
-        <div id="checklistMenu" class="checklist-menu">
-            <div class="checklist-btn" onclick="openChecklistForm('ALS')">ALS</div>
-            <div class="checklist-btn" onclick="openChecklistForm('BLS1')">BLS I</div>
-            <div class="checklist-btn" onclick="openChecklistForm('BLS2')">BLS II</div>
+        <div id="checklistMenu" class="modal-menu">
+            <div class="menu-btn" onclick="openChecklistForm('ALS')">ALS</div>
+            <div class="menu-btn" onclick="openChecklistForm('BLS1')">BLS I</div>
+            <div class="menu-btn" onclick="openChecklistForm('BLS2')">BLS II</div>
         </div>
 
-        <!-- második nézet: maga a kérdőív -->
-        <iframe 
-            id="checklistFrame"
-            class="modal-content"
-            src=""
-            style="display:none;"
-            allowfullscreen>
-        </iframe>
+        <iframe id="checklistFrame" class="modal-content" style="display:none;"></iframe>
     </div>
 </div>
 
-<!-- GÉPKOCSI KÖNYV MODAL -->
+<!-- GÉPKOCSI KÖNYV -->
 <div id="carModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
@@ -466,26 +373,18 @@ function closeHospitalModal() {
             <div class="modal-close" onclick="closeCarModal()">×</div>
         </div>
 
-        <!-- induló nézet: 4 rendszám -->
-        <div id="carMenu" class="checklist-menu">
-            <div class="checklist-btn" onclick="openCarForm('MA00278')">MA 00-278</div>
-            <div class="checklist-btn" onclick="openCarForm('MA1202')">MA 12-02</div>
-            <div class="checklist-btn" onclick="openCarForm('MA1081')">MA 10-81</div>
-            <div class="checklist-btn" onclick="openCarForm('MA0825')">MA 08-25</div>
+        <div id="carMenu" class="modal-menu">
+            <div class="menu-btn" onclick="openCarForm('MA00278')">MA 00-278</div>
+            <div class="menu-btn" onclick="openCarForm('MA1202')">MA 12-02</div>
+            <div class="menu-btn" onclick="openCarForm('MA1081')">MA 10-81</div>
+            <div class="menu-btn" onclick="openCarForm('MA0825')">MA 08-25</div>
         </div>
 
-        <!-- kiválasztás után ide jön a Google Form -->
-        <iframe 
-            id="carFrame"
-            class="modal-content"
-            src=""
-            style="display:none;"
-            allowfullscreen>
-        </iframe>
+        <iframe id="carFrame" class="modal-content" style="display:none;"></iframe>
     </div>
 </div>
 
-<!-- TELEFONSZÁMOK MODAL -->
+<!-- TELEFONSZÁMOK -->
 <div id="phoneModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
@@ -494,59 +393,43 @@ function closeHospitalModal() {
         </div>
 
         <div class="phone-list">
+
             <div class="phone-item">
                 <div class="phone-name">Mák Kristóf</div>
                 <div class="phone-role">Állomásvezető</div>
-                <div class="phone-number">
-                    <!-- ITT CSERÉLD SAJÁT SZÁMRA -->
-                    <a href="tel:+36123456789">+36 xx xxx xxxx</a>
-                </div>
+                <div class="phone-number"><a href="tel:+36308293788">+36 30 829 3788</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">Koós László</div>
                 <div class="phone-role">Garázsmester</div>
-                <div class="phone-number">
-                    <!-- ITT CSERÉLD SAJÁT SZÁMRA -->
-                    <a href="tel:+36123456789">+36 xx xxx xxxx</a>
-                </div>
+                <div class="phone-number"><a href="tel:+36702501505">+36 70 250 1505</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">KÁNY</div>
                 <div class="phone-role">KÁNY</div>
-                <div class="phone-number">
-                    <!-- ITT CSERÉLD SAJÁT SZÁMRA -->
-                    <a href="tel:+36123456789">+36 xx xxx xxxx</a>
-                </div>
+                <div class="phone-number"><a href="tel:+363080210022">+36 80 210 022</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">RSI konzulens</div>
-                <div class="phone-role">RSI konzulens</div>
-                <div class="phone-number">
-                    <!-- ITT CSERÉLD SAJÁT SZÁMRA -->
-                    <a href="tel:+36123456789">+36 xx xxx xxxx</a>
-                </div>
+                <div class="phone-role">RSI konzultáns</div>
+                <div class="phone-number"><a href="tel:+3680205025">+36 80 205 025</a></div>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- KÓRHÁZAK MODAL (korhazak.html iframe-ben) -->
+<!-- KÓRHÁZAK oldala IFRAME-BEN -->
 <div id="hospitalModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
-            Kórházak listája
+            Kórházak
             <div class="modal-close" onclick="closeHospitalModal()">×</div>
         </div>
-
-        <iframe 
-            id="hospitalFrame"
-            class="modal-content"
-            src="korhazak.html"
-            allowfullscreen>
-        </iframe>
+        <iframe class="modal-content" src="korhazak.html"></iframe>
     </div>
 </div>
 
