@@ -1,76 +1,298 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8">
-<title>Kórház panel</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kórházak panel</title>
 
 <style>
-body {
-  background: #f1f1f1;
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-.card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
-  max-width: 600px;
-  margin: auto;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-}
-.title {
-  background: #6EC1E4;
-  padding: 15px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #000;
-  text-align: center;
-  cursor: pointer;
-}
-.content {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.35s ease;
-  background: #fafafa;
-  border-radius: 12px;
-  margin-top: 10px;
-  padding: 0 15px;
-}
-.content-inner {
-  padding: 15px 0;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .hospital {
+        background: #e0e0e0;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .hospital:hover {
+        background: #d5d5d5;
+        transform: scale(1.02);
+    }
+
+    .details {
+        display: none;
+        background: white;
+        padding: 15px;
+        margin-top: 8px;
+        border-radius: 10px;
+        border: 1px solid #d9d9d9;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .title {
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 4px;
+        margin-top: 10px;
+    }
+
+    a {
+        color: #0077cc;
+        font-weight: bold;
+        text-decoration: none;
+    }
 </style>
 
+<script>
+function toggleDetails(id) {
+    const elem = document.getElementById(id);
+    elem.style.display = (elem.style.display === "block") ? "none" : "block";
+}
+</script>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="title" onclick="togglePanel()">🏥 Honvédkórház – SBO</div>
+<h1>Kórházak listája</h1>
 
-  <div id="panel" class="content">
-    <div class="content-inner">
-      📞 <b>Telefon:</b> — <br>
-      📡 <b>TETRA:</b> — <br>
-      📍 <b>Cím:</b> 1134 Budapest, Róbert Károly krt. 44. <br><br>
+<!-- BAJCSY KARD -->
+<div class="hospital" onclick="toggleDetails('bajcsy_kard')">Bajcsy – Kardiológia</div>
+<div class="details" id="bajcsy_kard">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614327600">+36 1 432 7600</a>
 
-      <a href="https://www.google.com/maps/search/?api=1&query=Honved+SBO" 
-         target="_blank" style="font-weight:bold; color:#0077cc;">➤ Térkép megnyitása</a>
-    </div>
-  </div>
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Bajcsy+K%C3%B3rh%C3%A1z+Budapest" target="_blank">
+        Navigáció
+    </a>
 </div>
 
-<script>
-function togglePanel() {
-  var panel = document.getElementById("panel");
-  if (panel.style.maxHeight && panel.style.maxHeight !== "0px") {
-    panel.style.maxHeight = "0px";
-  } else {
-    panel.style.maxHeight = panel.scrollHeight + "px";
-  }
-}
-</script>
+<!-- BAJCSY SBO -->
+<div class="hospital" onclick="toggleDetails('bajcsy_sbo')">Bajcsy – SBO</div>
+<div class="details" id="bajcsy_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614327600">+36 1 432 7600</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Bajcsy+K%C3%B3rh%C3%A1z+Budapest" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- BALESETI -->
+<div class="hospital" onclick="toggleDetails('baleseti')">Baleseti Intézet</div>
+<div class="details" id="baleseti">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3613343555">+36 1 334 3555</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Fiumei+út+17" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- BIK KARD -->
+<div class="hospital" onclick="toggleDetails('bik_kard')">BIK – Kardiológia</div>
+<div class="details" id="bik_kard">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3619200100">+36 1 920 0100</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+R%C3%B3bert+K%C3%A1roly+krt+44" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- DELPEST SBO -->
+<div class="hospital" onclick="toggleDetails('delpest_sbo')">Dél-pesti – SBO</div>
+<div class="details" id="delpest_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614554500">+36 1 455 4500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Nagyv%C3%A1rad+t%C3%A9r+1" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- HONVED KARD -->
+<div class="hospital" onclick="toggleDetails('honved_kard')">Honvéd – Kardiológia</div>
+<div class="details" id="honved_kard">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614651800">+36 1 465 1800</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+R%C3%B3bert+K%C3%A1roly+krt+44" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- HONVED SBO -->
+<div class="hospital" onclick="toggleDetails('honved_sbo')">Honvéd – SBO</div>
+<div class="details" id="honved_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614651800">+36 1 465 1800</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+R%C3%B3bert+K%C3%A1roly+krt+44" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- JANOS SBO -->
+<div class="hospital" onclick="toggleDetails('janos_sbo')">János – SBO</div>
+<div class="details" id="janos_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614584500">+36 1 458 4500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Diós+árok+1" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- JANOS TRAUMA -->
+<div class="hospital" onclick="toggleDetails('janos_trauma')">János – Trauma</div>
+<div class="details" id="janos_trauma">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614584500">+36 1 458 4500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Diós+árok+1" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- JANOS NEURO -->
+<div class="hospital" onclick="toggleDetails('janos_neuro')">János – Neurológia</div>
+<div class="details" id="janos_neuro">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614584500">+36 1 458 4500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Diós+árok+1" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- SOTE SBO -->
+<div class="hospital" onclick="toggleDetails('sote_sbo')">SOTE – SBO</div>
+<div class="details" id="sote_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614591500">+36 1 459 1500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Üllői+út+78" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- SOTE TRAUMA -->
+<div class="hospital" onclick="toggleDetails('sote_trauma')">SOTE – Trauma</div>
+<div class="details" id="sote_trauma">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614591500">+36 1 459 1500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Nagyvárad+tér+4" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- SOTE NEURO -->
+<div class="hospital" onclick="toggleDetails('sote_neuro')">SOTE – Neuro Intervenció</div>
+<div class="details" id="sote_neuro">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614591500">+36 1 459 1500</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Üllői+út+78" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- SZENT IMRE -->
+<div class="hospital" onclick="toggleDetails('szentimre_sbo')">Szent Imre – SBO</div>
+<div class="details" id="szentimre_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614648700">+36 1 464 8700</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Tétényi+út+12" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- UZSOKI -->
+<div class="hospital" onclick="toggleDetails('uzsoki_sbo')">Uzsoki – SBO</div>
+<div class="details" id="uzsoki_sbo">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3612515151">+36 1 251 5151</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Uzsoki+u+29" target="_blank">
+        Navigáció
+    </a>
+</div>
+
+<!-- VAROSMAJOR -->
+<div class="hospital" onclick="toggleDetails('varosmajor_cvc')">Városmajor – CVC</div>
+<div class="details" id="varosmajor_cvc">
+    <div class="title">Telefonszám:</div> 
+    <a href="tel:+3614586800">+36 1 458 6800</a>
+
+    <div class="title">TETRA:</div> hamarosan…
+
+    <div class="title">Cím:</div> 
+    <a href="https://www.google.com/maps?q=Budapest+Városmajor+u+68" target="_blank">
+        Navigáció
+    </a>
+</div>
 
 </body>
 </html>
