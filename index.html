@@ -1093,12 +1093,24 @@ function markRequestSeen() {
 // INIT
 document.addEventListener("DOMContentLoaded", function(){
     
-    // AUTO-PIN SKIP
+    // AUTO-PIN SKIP (1 hétig)
     const pinOK = localStorage.getItem("omsz_pin_verified");
-    if(pinOK === "true"){
+    const pinTime = localStorage.getItem("omsz_pin_time");
+
+    if(pinOK === "true" && pinTime){
+    const now = Date.now();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // 7 nap ms-ben
+
+    if(now - parseInt(pinTime, 10) < oneWeek){
+        // még nem telt le a 7 nap
         const ovl = document.getElementById("pinOverlay");
         if(ovl) ovl.style.display = "none";
+    } else {
+        // ÉRVÉNYESSÉG LEJÁRT → töröljük
+        localStorage.removeItem("omsz_pin_verified");
+        localStorage.removeItem("omsz_pin_time");
     }
+  }
     
     // téma betöltés
     const saved = localStorage.getItem("omsz_theme");
