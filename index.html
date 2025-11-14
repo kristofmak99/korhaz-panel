@@ -873,10 +873,13 @@
 
 <script>
 // PIN – 0278
+/* PIN – Remember mode */
 function checkPIN(){
     const input = document.getElementById("pinInput");
     const err = document.getElementById("pinError");
+
     if(input.value === "0278"){
+        localStorage.setItem("omsz_pin_verified", "true");
         document.getElementById("pinOverlay").style.display = "none";
         err.textContent = "";
     } else {
