@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Kórház panel</title>
+
+<style>
+body {
+  background: #f1f1f1;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+.title {
+  background: #6EC1E4;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  cursor: pointer;
+}
+.content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+  background: #fafafa;
+  border-radius: 12px;
+  margin-top: 10px;
+  padding: 0 15px;
+}
+.content-inner {
+  padding: 15px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+  <div class="title" onclick="togglePanel()">🏥 Honvédkórház – SBO</div>
+
+  <div id="panel" class="content">
+    <div class="content-inner">
+      📞 <b>Telefon:</b> — <br>
+      📡 <b>TETRA:</b> — <br>
+      📍 <b>Cím:</b> 1134 Budapest, Róbert Károly krt. 44. <br><br>
+
+      <a href="https://www.google.com/maps/search/?api=1&query=Honved+SBO" 
+         target="_blank" style="font-weight:bold; color:#0077cc;">➤ Térkép megnyitása</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function togglePanel() {
+  var panel = document.getElementById("panel");
+  if (panel.style.maxHeight && panel.style.maxHeight !== "0px") {
+    panel.style.maxHeight = "0px";
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+}
+</script>
+
+</body>
+</html>
