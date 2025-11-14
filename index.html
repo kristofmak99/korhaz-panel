@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMSZ Budaörs – Főoldal</title>
 
 <link rel="manifest" href="manifest.json">
@@ -49,12 +49,14 @@
     h1 {
         font-size: 26px;
         margin-bottom: 4px;
+        text-align: center;
     }
 
     .subtitle {
         font-size: 14px;
         color: #555;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
+        text-align: center;
     }
 
     body.dark .subtitle {
@@ -63,11 +65,12 @@
 
     .daily-info {
         font-size: 13px;
-        padding: 8px 10px;
+        padding: 10px 12px;
         border-radius: 10px;
         background: #e3f2ff;
         color: #003366;
         margin-bottom: 16px;
+        text-align: center;
     }
 
     body.dark .daily-info {
@@ -77,21 +80,26 @@
 
     .theme-toggle {
         cursor: pointer;
-        font-size: 22px;
+        font-size: 24px;
         user-select: none;
         padding: 4px 8px;
         border-radius: 999px;
         background: rgba(0,0,0,0.05);
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
     }
 
     body.dark .theme-toggle {
-        background: rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.10);
     }
 
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 12px;
+        margin-top: 20px;
     }
 
     .tile {
@@ -104,30 +112,28 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        transition: 0.15s;
         text-decoration: none;
         color: inherit;
     }
 
     body.dark .tile {
         background: var(--card-dark);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        box-shadow: 0 2px 6px rgba(255,255,255,0.05);
     }
 
     .tile:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
 
     .tile-icon {
-        font-size: 30px;
-        margin-bottom: 8px;
+        font-size: 34px;
+        margin-bottom: 6px;
     }
 
     .tile-label {
         font-size: 15px;
         font-weight: 600;
-        text-align: center;
     }
 
     .footer {
@@ -135,10 +141,6 @@
         font-size: 11px;
         color: #777;
         text-align: center;
-    }
-
-    body.dark .footer {
-        color: #999;
     }
 
     /* MODAL háttér */
@@ -150,10 +152,11 @@
         width: 100%;
         height: 100%;
         background: rgba(0,0,0,0.45);
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(3px);
         justify-content: center;
         align-items: center;
         z-index: 999;
+        padding: 10px;
     }
 
     /* MODAL ablak */
@@ -173,15 +176,14 @@
         background: var(--card-dark);
     }
 
-    /* MODAL fejléc */
     .modal-header {
-        padding: 10px 14px;
-        background: var(--header-light);
+        padding: 12px 16px;
         font-weight: 600;
+        background: var(--header-light);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 15px;
+        font-size: 16px;
     }
 
     body.dark .modal-header {
@@ -190,191 +192,221 @@
 
     .modal-close {
         cursor: pointer;
-        font-size: 20px;
+        font-size: 22px;
         line-height: 1;
     }
 
     .modal-content {
         flex: 1;
-        border: none;
         width: 100%;
-        background: transparent;
+        border: none;
     }
 
-    /* AL menük (Checklist, Kocsik, Segédletek) */
-    .modal-menu {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        overflow-y: auto;
-    }
-
-    .menu-btn {
-        padding: 12px;
-        border-radius: 10px;
-        background: #f7f7f7;
-        border: 1px solid #ddd;
-        cursor: pointer;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        transition: 0.2s;
-    }
-
-    body.dark .menu-btn {
-        background: #2b2b2b;
-        border-color: #444;
-    }
-
-    .menu-btn:hover {
-        background: #eee;
-        transform: translateY(-1px);
-    }
-
-    body.dark .menu-btn:hover {
-        background: #3a3a3a;
-    }
-
-    /* Telefonszám modal */
-    .phone-list {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        overflow-y: auto;
-    }
-
-    .phone-item {
-        background: #f7f7f7;
-        border-radius: 10px;
-        padding: 12px;
-        text-align: center;
-    }
-
-    body.dark .phone-item {
-        background: #2a2a2a;
-    }
-
-    .phone-name {
-        font-weight: 700;
-        font-size: 16px;
-        margin-bottom: 4px;
-    }
-
-    .phone-role {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 6px;
-    }
-
-    body.dark .phone-role {
-        color: #aaa;
-    }
-
-    .phone-number a {
-        color: #0059c9;
-        text-decoration: none;
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-    body.dark .phone-number a {
-        color: #82b7ff;
-    }
-
-    .phone-number a:hover {
-        text-decoration: underline;
-    }
-
-    .phone-icon {
-        margin-right: 6px;
-    }
-
-    /* PIN overlay */
-    .pin-overlay {
+    /* PIN kód képernyő */
+    #pinScreen {
         position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.85);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-light);
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        flex-direction: column;
         z-index: 2000;
+        padding: 20px;
     }
 
-    .pin-box {
-        background: #ffffff;
-        border-radius: 18px;
-        padding: 22px 18px;
-        width: 90%;
-        max-width: 320px;
+    body.dark #pinScreen {
+        background: var(--bg-dark);
+    }
+
+    #pinInput {
+        font-size: 26px;
+        padding: 10px 16px;
+        width: 160px;
         text-align: center;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-    }
-
-    body.dark .pin-box {
-        background: #1f1f1f;
-        color: #f0f0f0;
-    }
-
-    .pin-title {
-        font-size: 18px;
-        margin-bottom: 6px;
-        font-weight: 600;
-    }
-
-    .pin-sub {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 14px;
-    }
-
-    body.dark .pin-sub {
-        color: #aaa;
-    }
-
-    .pin-input {
-        padding: 10px 12px;
-        font-size: 18px;
-        width: 100%;
-        box-sizing: border-box;
         border-radius: 10px;
-        border: 1px solid #ccc;
-        text-align: center;
-        letter-spacing: 4px;
-        margin-bottom: 10px;
+        border: 2px solid #888;
+        outline: none;
+        margin-top: 10px;
+        background: white;
     }
 
-    .pin-btn {
-        margin-top: 6px;
-        width: 100%;
-        padding: 10px;
-        border-radius: 10px;
-        border: none;
-        background: #0059c9;
+    body.dark #pinInput {
+        background: #222;
         color: white;
-        font-weight: 600;
-        font-size: 15px;
+        border: 2px solid #666;
+    }
+
+    #pinBtn {
+        margin-top: 14px;
+        font-size: 18px;
+        padding: 10px 20px;
+        border: none;
+        background: #0077cc;
+        color: white;
+        border-radius: 10px;
         cursor: pointer;
     }
 
-    .pin-btn:hover {
-        background: #004099;
-    }
-
-    .pin-error {
-        font-size: 12px;
-        color: #cc0000;
-        min-height: 16px;
-        margin-top: 4px;
-    }
-
-    @media (max-width: 480px) {
-        h1 {
-            font-size: 22px;
-        }
+    #pinError {
+        margin-top: 10px;
+        color: red;
+        font-size: 14px;
+        display: none;
     }
 </style>
+
+<script>
+/* PIN KÓD - 0278 */
+function checkPIN() {
+    let input = document.getElementById("pinInput").value;
+    if (input === "0278") {
+        document.getElementById("pinScreen").style.display = "none";
+    } else {
+        document.getElementById("pinError").style.display = "block";
+    }
+}
+
+/* DARK MODE */
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+}
+
+/* betöltéskor */
+window.onload = function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+};
+</script>
+</head>
+
+<body>
+
+<!-- PIN KÉPERNYŐ -->
+<div id="pinScreen">
+    <h2>Belépés</h2>
+    <p>Kérlek add meg a PIN kódot:</p>
+    <input id="pinInput" type="password" maxlength="4" placeholder="••••">
+    <button id="pinBtn" onclick="checkPIN()">Belépés</button>
+    <div id="pinError">Hibás PIN!</div>
+</div>
+
+<!-- Sötét mód kapcsoló -->
+<div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+
+<!-- FŐ TARTALOM -->
+<div class="app-container">
+
+    <h1>OMSZ Budaörs</h1>
+    <div class="subtitle">Állomás – belső segédalkalmazás</div>
+
+    <!-- NAPI INFÓ SÁV -->
+    <div id="dailyInfo" class="daily-info">Betöltés...</div>
+
+    <script>
+        function updateDailyInfo() {
+            let d = new Date();
+            let day = d.getDay();     // 0 = Vasárnap
+            let date = d.getDate();   // nap a hónapban
+            let msg = "";
+
+            /* Beosztás figyelmeztetés 1–10 között */
+            if (date >= 1 && date <= 10) {
+                msg += "📅 Ne felejtsd: Beosztás kérést kell küldeni!<br>";
+            }
+
+            /* Napi feladatok */
+            if (day === 4) msg += "🧼 Ma: BLS II takarítás.";
+            else if (day === 5) msg += "🧼 Ma: BLS I takarítás.";
+            else if (day === 6) msg += "🧼 Ma: ALS takarítás.";
+            else if (day === 0) msg += "🚛 Ma: Garázs takarítás + szemét kivitel.";
+
+            if (msg === "") msg = "Nincs külön teendő mára.";
+
+            document.getElementById("dailyInfo").innerHTML = msg;
+        }
+        updateDailyInfo();
+    </script>
+
+    <!-- MENÜ GRID -->
+    <div class="grid">
+
+        <!-- Beosztás -->
+        <div class="tile" onclick="openModal()">
+            <div class="tile-icon">📅</div>
+            <div class="tile-label">Beosztás</div>
+        </div>
+
+        <!-- Beosztás kérés -->
+        <div class="tile" onclick="openRequestModal()">
+            <div class="tile-icon">✉️</div>
+            <div class="tile-label">Beosztás kérés</div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="tile" onclick="openChecklistModal()">
+            <div class="tile-icon">✅</div>
+            <div class="tile-label">Checklist</div>
+        </div>
+
+        <!-- Gépkocsi könyvek -->
+        <div class="tile" onclick="openCarModal()">
+            <div class="tile-icon">🚐</div>
+            <div class="tile-label">Gépkocsi könyvek</div>
+        </div>
+
+        <!-- Kórházak -->
+        <div class="tile" onclick="openHospitalModal()">
+            <div class="tile-icon">🏥</div>
+            <div class="tile-label">Kórházak</div>
+        </div>
+
+        <!-- Telefonszámok -->
+        <div class="tile" onclick="openPhoneModal()">
+            <div class="tile-icon">📞</div>
+            <div class="tile-label">Telefonszámok</div>
+        </div>
+
+        <!-- Segédletek -->
+        <div class="tile" onclick="openHelpModal()">
+            <div class="tile-icon">📚</div>
+            <div class="tile-label">Segédletek</div>
+        </div>
+
+        <!-- Aktuális -->
+        <div class="tile" onclick="openNewsModal()">
+            <div class="tile-icon">📰</div>
+            <div class="tile-label">Aktuális</div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Belső használatra • Ha gond van az oldallal, jelezd az állomásvezetőnek.
+    </div>
+
+</div> <!-- app-container vége -->
+
+
+<!-- BEOSZTÁS MODAL -->
+<div id="modalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Beosztás (Google Sheets)
+            <div class="modal-close" onclick="closeModal()">×</div>
+        </div>
+
+        <iframe class="modal-content"
+            src="https://docs.google.com/spreadsheets/d/1nj7Zyt_qgBCqjYpO3hdsQZaCY2TyQHfg4kgoBIuWsEs/edit?usp=sharing"
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
 
 <script>
 function openModal() {
@@ -383,335 +415,33 @@ function openModal() {
 function closeModal() {
     document.getElementById("modalBg").style.display = "none";
 }
-
-/* Beosztás kérés */
-function openRequestModal() {
-    document.getElementById("requestModalBg").style.display = "flex";
-}
-function closeRequestModal() {
-    document.getElementById("requestModalBg").style.display = "none";
-}
-
-/* Checklist */
-function openChecklistModal() {
-    document.getElementById("checklistModalBg").style.display = "flex";
-    document.getElementById("checklistMenu").style.display = "flex";
-    document.getElementById("checklistFrame").style.display = "none";
-    document.getElementById("checklistFrame").src = "";
-}
-function closeChecklistModal() {
-    document.getElementById("checklistModalBg").style.display = "none";
-}
-function openChecklistForm(type) {
-    let url = "";
-    if (type === "ALS") url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
-    if (type === "BLS1") url = "https://forms.gle/DC7WjKgj241b6CSz7";
-    if (type === "BLS2") url = "https://forms.gle/iU4PbV9nSBnTboU68";
-
-    document.getElementById("checklistMenu").style.display = "none";
-    document.getElementById("checklistFrame").style.display = "block";
-    document.getElementById("checklistFrame").src = url;
-}
-
-/* Gépkocsi könyv */
-function openCarModal() {
-    document.getElementById("carModalBg").style.display = "flex";
-    document.getElementById("carMenu").style.display = "flex";
-    document.getElementById("carFrame").style.display = "none";
-    document.getElementById("carFrame").src = "";
-}
-function closeCarModal() {
-    document.getElementById("carModalBg").style.display = "none";
-}
-function openCarForm(car) {
-    let url = "";
-    if (car === "MA00278") url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
-    if (car === "MA1202") url = "https://forms.gle/LwaQnVrVjgJ1xmwZ9";
-    if (car === "MA1081") url = "https://forms.gle/GR18YETWNaJroxsP9";
-    if (car === "MA0825") url = "https://forms.gle/fqv9RG8Atk8BQGMXA";
-
-    document.getElementById("carMenu").style.display = "none";
-    document.getElementById("carFrame").style.display = "block";
-    document.getElementById("carFrame").src = url;
-}
-
-/* Telefonszámok */
-function openPhoneModal() {
-    document.getElementById("phoneModalBg").style.display = "flex";
-}
-function closePhoneModal() {
-    document.getElementById("phoneModalBg").style.display = "none";
-}
-
-/* Kórházak modal (iframe) */
-function openHospitalModal() {
-    document.getElementById("hospitalModalBg").style.display = "flex";
-}
-function closeHospitalModal() {
-    document.getElementById("hospitalModalBg").style.display = "none";
-}
-
-/* Segédletek */
-function openHelpModal() {
-    document.getElementById("helpModalBg").style.display = "flex";
-    document.getElementById("helpMenu").style.display = "flex";
-    document.getElementById("helpFrame").style.display = "none";
-    document.getElementById("helpFrame").src = "";
-}
-function closeHelpModal() {
-    document.getElementById("helpModalBg").style.display = "none";
-}
-function openHelpItem(type) {
-    let url = "";
-    // IDE KÉSŐBB PDF / LINK URL-EKET ÍRHATSZ
-    if (type === "ISBAR") url = "ISBAR_LINK_IDE";
-    if (type === "METHAN") url = "METHAN_LINK_IDE";
-    if (type === "NORADRENALIN") url = "NORADRENALIN_LINK_IDE";
-    if (type === "DOBUTAMIN") url = "DOBUTAMIN_LINK_IDE";
-    if (type === "RSI") url = "RSI_GYOGYSZEREK_LINK_IDE";
-    if (type === "RACE") url = "RACE_SCORE_LINK_IDE";
-    if (type === "WELLS") url = "WELLS_SCORE_LINK_IDE";
-    if (type === "PERC") url = "PERC_SCORE_LINK_IDE";
-
-    if (!url || url.endsWith("_IDE")) {
-        alert("Ehhez a segédlethez még nincs beállítva link. Cseréld ki a kódban a megfelelő URL-re.");
-        return;
-    }
-
-    document.getElementById("helpMenu").style.display = "none";
-    document.getElementById("helpFrame").style.display = "block";
-    document.getElementById("helpFrame").src = url;
-}
-
-/* Aktuális */
-function openNewsModal() {
-    document.getElementById("newsModalBg").style.display = "flex";
-}
-function closeNewsModal() {
-    document.getElementById("newsModalBg").style.display = "none";
-}
-
-/* Dark mode */
-function toggleTheme() {
-    const body = document.body;
-    const isDark = body.classList.toggle("dark");
-    localStorage.setItem("omsz_theme", isDark ? "dark" : "light");
-    const icon = document.getElementById("themeToggleIcon");
-    if (icon) icon.textContent = isDark ? "☀️" : "🌙";
-}
-
-/* PIN kód */
-function checkPin() {
-    const input = document.getElementById("pinInput");
-    const error = document.getElementById("pinError");
-    if (!input || !error) return;
-
-    if (input.value === "0278") {
-        localStorage.setItem("omsz_pin_ok", "1");
-        document.getElementById("pinOverlay").style.display = "none";
-        input.value = "";
-        error.textContent = "";
-    } else {
-        error.textContent = "Hibás PIN-kód.";
-        input.value = "";
-    }
-}
-
-/* Mai nap infó */
-function updateDailyInfo() {
-    const info = document.getElementById("dailyInfo");
-    if (!info) return;
-
-    const now = new Date();
-    const day = now.getDay();    // 0=vasárnap, 1=hétfő...
-    const date = now.getDate();  // 1-31
-
-    let lines = [];
-
-    // 1–10.: beosztás kérelem emlékeztető
-    if (date >= 1 && date <= 10) {
-        lines.push("📅 1–10. nap között: ne felejtsd el elküldeni a beosztás kérést!");
-    }
-
-    // Heti takarítás / feladat
-    if (day === 4) { // csütörtök
-        lines.push("🧹 Csütörtök: BLS II takarítás.");
-    } else if (day === 5) { // péntek
-        lines.push("🧹 Péntek: BLS I takarítás.");
-    } else if (day === 6) { // szombat
-        lines.push("🧹 Szombat: ALS takarítás.");
-    } else if (day === 0) { // vasárnap
-        lines.push("🚮 Vasárnap: garázs takarítás és szemét kivitel.");
-    }
-
-    if (lines.length === 0) {
-        lines.push("ℹ Ma nincs külön kiemelt feladat.");
-    }
-
-    info.innerHTML = lines.join("<br>");
-}
-
-/* INIT */
-document.addEventListener("DOMContentLoaded", function() {
-    // PIN ellenőrzés
-    const pinOk = localStorage.getItem("omsz_pin_ok");
-    const pinOverlay = document.getElementById("pinOverlay");
-    if (pinOk === "1") {
-        if (pinOverlay) pinOverlay.style.display = "none";
-    } else {
-        if (pinOverlay) pinOverlay.style.display = "flex";
-    }
-
-    // PIN enter gomb
-    const pinInput = document.getElementById("pinInput");
-    if (pinInput) {
-        pinInput.addEventListener("keyup", function(e) {
-            if (e.key === "Enter") {
-                checkPin();
-            }
-        });
-    }
-
-    // Theme betöltés
-    const savedTheme = localStorage.getItem("omsz_theme");
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark");
-        const icon = document.getElementById("themeToggleIcon");
-        if (icon) icon.textContent = "☀️";
-    }
-
-    // Mai nap infó
-    updateDailyInfo();
-});
 </script>
 
-</head>
-<body>
 
-<!-- PIN KÓD OVERLAY -->
-<div id="pinOverlay" class="pin-overlay">
-    <div class="pin-box">
-        <div class="pin-title">OMSZ Budaörs – Belépés</div>
-        <div class="pin-sub">Add meg az állomás PIN-kódját a belépéshez.</div>
-        <input id="pinInput" class="pin-input" type="password" maxlength="4" inputmode="numeric" autocomplete="off" />
-        <button class="pin-btn" onclick="checkPin()">Belépés</button>
-        <div id="pinError" class="pin-error"></div>
-    </div>
-</div>
-
-<div class="app-container">
-    <div class="top-row">
-        <div>
-            <h1>OMSZ Budaörs</h1>
-            <div class="subtitle">Állomás – belső segédalkalmazás</div>
-        </div>
-        <div class="theme-toggle" onclick="toggleTheme()">
-            <span id="themeToggleIcon">🌙</span>
-        </div>
-    </div>
-
-    <div id="dailyInfo" class="daily-info">
-        <!-- JS tölti ki -->
-    </div>
-
-    <div class="grid">
-        <div class="tile" onclick="openModal()">
-            <div class="tile-icon">📅</div>
-            <div class="tile-label">Beosztás</div>
-        </div>
-
-        <div class="tile" onclick="openRequestModal()">
-            <div class="tile-icon">✉️</div>
-            <div class="tile-label">Beosztás kérés</div>
-        </div>
-
-        <div class="tile" onclick="openChecklistModal()">
-            <div class="tile-icon">✅</div>
-            <div class="tile-label">Checklist</div>
-        </div>
-
-        <div class="tile" onclick="openCarModal()">
-            <div class="tile-icon">🚐</div>
-            <div class="tile-label">Gépkocsi könyv</div>
-        </div>
-
-        <div class="tile" onclick="openHospitalModal()">
-            <div class="tile-icon">🏥</div>
-            <div class="tile-label">Kórházak</div>
-        </div>
-
-        <div class="tile" onclick="openPhoneModal()">
-            <div class="tile-icon">📞</div>
-            <div class="tile-label">Telefonszámok</div>
-        </div>
-
-        <div class="tile" onclick="openHelpModal()">
-            <div class="tile-icon">📚</div>
-            <div class="tile-label">Segédletek</div>
-        </div>
-
-        <div class="tile" onclick="openNewsModal()">
-            <div class="tile-icon">📰</div>
-            <div class="tile-label">Aktuális</div>
-        </div>
-
-        <div class="tile" onclick="alert('Hibajegy kérdőív hamarosan…')">
-            <div class="tile-icon">🛠️</div>
-            <div class="tile-label">Hibajegyek</div>
-        </div>
-
-        <div class="tile" onclick="alert('Profil funkció hamarosan…')">
-            <div class="tile-icon">👤</div>
-            <div class="tile-label">Profil</div>
-        </div>
-    </div>
-
-    <div class="footer">
-        Belső használatra • Probléma esetén jelezd az állomásvezetőnek.
-    </div>
-</div>
-
-<!-- BEOSZTÁS -->
-<div id="modalBg" class="modal-bg">
-    <div class="modal-window">
-        <div class="modal-header">
-            Beosztás
-            <div class="modal-close" onclick="closeModal()">×</div>
-        </div>
-        <iframe class="modal-content" src="https://docs.google.com/spreadsheets/d/1nj7Zyt_qgBCqjYpO3hdsQZaCY2TyQHfg4kgoBIuWsEs/edit?usp=sharing"></iframe>
-    </div>
-</div>
-
-<!-- BEOSZTÁS KÉRÉS -->
+<!-- BEOSZTÁS KÉRÉS MODAL -->
 <div id="requestModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
             Beosztás kérés
             <div class="modal-close" onclick="closeRequestModal()">×</div>
         </div>
-        <iframe class="modal-content" src="https://forms.gle/RSADJYQmcaric7Bu7"></iframe>
+        <iframe class="modal-content"
+            src="https://forms.gle/RSADJYQmcaric7Bu7">
+        </iframe>
     </div>
 </div>
 
-<!-- CHECKLIST -->
-<div id="checklistModalBg" class="modal-bg">
-    <div class="modal-window">
-        <div class="modal-header">
-            Checklist
-            <div class="modal-close" onclick="closeChecklistModal()">×</div>
-        </div>
+<script>
+function openRequestModal(){
+    document.getElementById("requestModalBg").style.display="flex";
+}
+function closeRequestModal(){
+    document.getElementById("requestModalBg").style.display="none";
+}
+</script>
 
-        <div id="checklistMenu" class="modal-menu">
-            <div class="menu-btn" onclick="openChecklistForm('ALS')">ALS</div>
-            <div class="menu-btn" onclick="openChecklistForm('BLS1')">BLS I</div>
-            <div class="menu-btn" onclick="openChecklistForm('BLS2')">BLS II</div>
-        </div>
 
-        <iframe id="checklistFrame" class="modal-content" style="display:none;"></iframe>
-    </div>
-</div>
-
-<!-- GÉPKOCSI KÖNYV -->
+<!-- GÉPKOCSI KÖNYV MODAL -->
 <div id="carModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
@@ -719,18 +449,150 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="modal-close" onclick="closeCarModal()">×</div>
         </div>
 
-        <div id="carMenu" class="modal-menu">
-            <div class="menu-btn" onclick="openCarForm('MA00278')">MA 00-278</div>
-            <div class="menu-btn" onclick="openCarForm('MA1202')">MA 12-02</div>
-            <div class="menu-btn" onclick="openCarForm('MA1081')">MA 10-81</div>
-            <div class="menu-btn" onclick="openCarForm('MA0825')">MA 08-25</div>
+        <div id="carMenu" style="padding:16px; display:flex; flex-direction:column; gap:10px;">
+
+            <button class="checklist-btn" onclick="openCarForm('278')">MA 00-278</button>
+            <button class="checklist-btn" onclick="openCarForm('02')">MA 12-02</button>
+            <button class="checklist-btn" onclick="openCarForm('81')">MA 10-81</button>
+            <button class="checklist-btn" onclick="openCarForm('25')">MA 08-25</button>
+
         </div>
 
         <iframe id="carFrame" class="modal-content" style="display:none;"></iframe>
+
     </div>
 </div>
 
-<!-- TELEFONSZÁMOK -->
+<script>
+function openCarModal(){
+    document.getElementById("carModalBg").style.display="flex";
+    document.getElementById("carMenu").style.display="flex";
+    document.getElementById("carFrame").style.display="none";
+    document.getElementById("carFrame").src="";
+}
+
+function closeCarModal(){
+    document.getElementById("carModalBg").style.display="none";
+}
+
+function openCarForm(id){
+    let url="";
+    if(id==="278") url="https://forms.gle/9S9Fe9SsCXeaWpVR7";
+    if(id==="02")  url="https://forms.gle/LwaQnVrVjgJ1xmwZ9";
+    if(id==="81")  url="https://forms.gle/GR18YETWNaJroxsP9";
+    if(id==="25")  url="https://forms.gle/fqv9RG8Atk8BQGMXA";
+
+    document.getElementById("carFrame").src=url;
+    document.getElementById("carMenu").style.display="none";
+    document.getElementById("carFrame").style.display="block";
+}
+</script>
+
+
+<!-- CHECKLIST MODAL -->
+<div id="checklistModalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Checklist
+            <div class="modal-close" onclick="closeChecklistModal()">×</div>
+        </div>
+
+        <div id="checklistMenu" class="checklist-menu">
+
+            <button class="checklist-btn" onclick="openChecklistForm('ALS')">ALS</button>
+            <button class="checklist-btn" onclick="openChecklistForm('BLS1')">BLS I</button>
+            <button class="checklist-btn" onclick="openChecklistForm('BLS2')">BLS II</button>
+
+        </div>
+
+        <iframe id="checklistFrame" class="modal-content" style="display:none;"></iframe>
+
+    </div>
+</div>
+
+<script>
+function openChecklistModal(){
+    document.getElementById("checklistModalBg").style.display="flex";
+    document.getElementById("checklistMenu").style.display="flex";
+    document.getElementById("checklistFrame").style.display="none";
+    document.getElementById("checklistFrame").src="";
+}
+
+function closeChecklistModal(){
+    document.getElementById("checklistModalBg").style.display="none";
+}
+
+function openChecklistForm(type){
+    let url="";
+    if(type==="ALS") url="https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
+    if(type==="BLS1") url="https://forms.gle/DC7WjKgj241b6CSz7";
+    if(type==="BLS2") url="https://forms.gle/iU4PbV9nSBnTboU68";
+
+    document.getElementById("checklistFrame").src=url;
+    document.getElementById("checklistMenu").style.display="none";
+    document.getElementById("checklistFrame").style.display="block";
+}
+</script>
+
+<!-- SEGÉDLETEK MODAL -->
+<div id="helpModalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Segédletek
+            <div class="modal-close" onclick="closeHelpModal()">×</div>
+        </div>
+
+        <div id="helpMenu" class="checklist-menu">
+
+            <button class="checklist-btn" onclick="openHelp('isbar')">ISBAR</button>
+            <button class="checklist-btn" onclick="openHelp('methane')">METHANE</button>
+            <button class="checklist-btn" onclick="openHelp('norad')">Noradrenalin</button>
+            <button class="checklist-btn" onclick="openHelp('dobut')">Dobutamin</button>
+            <button class="checklist-btn" onclick="openHelp('rsi')">RSI gyógyszerek</button>
+            <button class="checklist-btn" onclick="openHelp('race')">RACE Score</button>
+            <button class="checklist-btn" onclick="openHelp('wells')">Wells Score</button>
+            <button class="checklist-btn" onclick="openHelp('perc')">PERC Score</button>
+
+        </div>
+
+        <iframe id="helpFrame" class="modal-content" style="display:none;"></iframe>
+
+    </div>
+</div>
+
+<script>
+function openHelpModal(){
+    document.getElementById("helpModalBg").style.display="flex";
+    document.getElementById("helpMenu").style.display="flex";
+    document.getElementById("helpFrame").style.display="none";
+    document.getElementById("helpFrame").src="";
+}
+
+function closeHelpModal(){
+    document.getElementById("helpModalBg").style.display="none";
+}
+
+function openHelp(type){
+    let url = "";
+
+    if(type==="isbar") url = "https://drive.google.com/file/d/1h5FBcdpZQDH6_l6D30pXkL5eR8H02tuE/preview";
+    if(type==="methane") url = "https://drive.google.com/file/d/1EbT50rt49so2j2F9MXu1ZfCcn8RZsCey/preview";
+    if(type==="norad") url = "https://drive.google.com/file/d/1lJzRk0E7x61yZwP2OlnqgUc6S9eMrWNO/preview";
+    if(type==="dobut") url = "https://drive.google.com/file/d/1v4p3Pn9Mxdn1dZ2RSFqQSL7K7-AQ6znk/preview";
+    if(type==="rsi") url = "https://drive.google.com/file/d/1HQv0VDPp90pJtRqHtVtqrjtkXy3WMLSv/preview";
+    if(type==="race") url = "https://drive.google.com/file/d/1lyhyhYxG7RBu4pyiAxjFXzmMxLkpoW6l/preview";
+    if(type==="wells") url = "https://drive.google.com/file/d/1nfU0Lw3eYSt3tjpKexJc8mBCqOeWB_8R/preview";
+    if(type==="perc") url = "https://drive.google.com/file/d/10yl3VWNQDySn4Du3u4F8pkGeZ6Zlh-2w/preview";
+
+    document.getElementById("helpFrame").src = url;
+    document.getElementById("helpMenu").style.display = "none";
+    document.getElementById("helpFrame").style.display = "block";
+}
+</script>
+
+
+
+<!-- TELEFONSZÁMOK MODAL -->
 <div id="phoneModalBg" class="modal-bg">
     <div class="modal-window">
         <div class="modal-header">
@@ -743,91 +605,296 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="phone-item">
                 <div class="phone-name">Mák Kristóf</div>
                 <div class="phone-role">Állomásvezető</div>
-                <div class="phone-number">
-                    <span class="phone-icon">📞</span>
-                    <a href="tel:+36308293788">+36 30 829 3788</a>
-                </div>
+                <div class="phone-number"><a href="tel:+36308293788">+36 30 829 3788</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">Koós László</div>
                 <div class="phone-role">Garázsmester</div>
-                <div class="phone-number">
-                    <span class="phone-icon">📞</span>
-                    <a href="tel:+36702501505">+36 70 250 1505</a>
-                </div>
+                <div class="phone-number"><a href="tel:+36702501505">+36 70 250 1505</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">KÁNY</div>
-                <div class="phone-role">KÁNY</div>
-                <div class="phone-number">
-                    <span class="phone-icon">📞</span>
-                    <a href="tel:+363080210022">+36 80 210 022</a>
-                </div>
+                <div class="phone-role">Központi szám</div>
+                <div class="phone-number"><a href="tel:+3680210022">+36 80 210 022</a></div>
             </div>
 
             <div class="phone-item">
                 <div class="phone-name">RSI konzulens</div>
-                <div class="phone-role">RSI konzultáns</div>
-                <div class="phone-number">
-                    <span class="phone-icon">📞</span>
-                    <a href="tel:+3680205025">+36 80 205 025</a>
-                </div>
+                <div class="phone-role">Országos konzultáció</div>
+                <div class="phone-number"><a href="tel:+3680205025">+36 80 205 025</a></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+function openPhoneModal(){
+    document.getElementById("phoneModalBg").style.display="flex";
+}
+function closePhoneModal(){
+    document.getElementById("phoneModalBg").style.display="none";
+}
+</script>
+
+
+
+<!-- AKTUÁLIS MODAL -->
+<div id="newsModalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Aktuális információk
+            <div class="modal-close" onclick="closeNewsModal()">×</div>
+        </div>
+
+        <iframe id="newsFrame" class="modal-content"
+            src="https://drive.google.com/file/d/1-SAMPLE-ACTUAL-PDF/preview">
+        </iframe>
+
+    </div>
+</div>
+
+<script>
+function openNewsModal(){
+    document.getElementById("newsModalBg").style.display="flex";
+}
+function closeNewsModal(){
+    document.getElementById("newsModalBg").style.display="none";
+}
+</script>
+
+<!-- KÓRHÁZAK MODAL -->
+<style>
+    .hospital-list {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: auto;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .hospital-item {
+        background: #f7f7f7;
+        border-radius: 10px;
+        padding: 10px 12px;
+    }
+
+    body.dark .hospital-item {
+        background: #2a2a2a;
+    }
+
+    .hospital-name {
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .hospital-row {
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+    .hospital-nav {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: #0077cc;
+        color: #fff;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    .hospital-nav:hover {
+        background: #005fa3;
+    }
+</style>
+
+<div id="hospitalModalBg" class="modal-bg">
+    <div class="modal-window">
+        <div class="modal-header">
+            Kórházak listája
+            <div class="modal-close" onclick="closeHospitalModal()">×</div>
+        </div>
+
+        <div class="hospital-list">
+
+            <!-- Baleseti Intézet -->
+            <div class="hospital-item">
+                <div class="hospital-name">Baleseti Intézet</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Baleseti+Intezet+Budapest"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Bajcsy Kardiológia -->
+            <div class="hospital-item">
+                <div class="hospital-name">Bajcsy – Kardiológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Bajcsy-Zsilinszky+Kórház+Kardiológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Bajcsy SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">Bajcsy – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Bajcsy-Zsilinszky+Kórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- BIK Kardiológia -->
+            <div class="hospital-item">
+                <div class="hospital-name">BIK – Kardiológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Budai+Irgalmasrendi+Kórház+Kardiológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Dél-pesti SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">Dél-pesti SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Dél-pesti+Kórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Honvéd kardiológia -->
+            <div class="hospital-item">
+                <div class="hospital-name">Honvéd – Kardiológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Honvédkórház+Kardiológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Honvéd SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">Honvéd – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Honvédkórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- János SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">János Kórház – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Szent+János+Kórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- János trauma -->
+            <div class="hospital-item">
+                <div class="hospital-name">János Kórház – Traumatológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Szent+János+Kórház+Traumatológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- János neurológia -->
+            <div class="hospital-item">
+                <div class="hospital-name">János Kórház – Neurológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Szent+János+Kórház+Neurológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- SOTE neuro intervenció -->
+            <div class="hospital-item">
+                <div class="hospital-name">SOTE – Neuro intervenció</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Semmelweis+Egyetem+Neuroradiológia+Intervenció"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- SOTE SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">SOTE – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Semmelweis+Egyetem+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- SOTE trauma -->
+            <div class="hospital-item">
+                <div class="hospital-name">SOTE – Traumatológia</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Semmelweis+Egyetem+Traumatológia"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Szent Imre SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">Szent Imre – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Szent+Imre+Kórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Uzsoki SBO -->
+            <div class="hospital-item">
+                <div class="hospital-name">Uzsoki – SBO</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Uzsoki+Utcai+Kórház+Sürgősségi+Osztály"
+                   target="_blank">Navigáció megnyitása</a>
+            </div>
+
+            <!-- Városmajor CVC -->
+            <div class="hospital-item">
+                <div class="hospital-name">Városmajor – CVC</div>
+                <div class="hospital-row">Telefon: <span>ide kerül</span></div>
+                <div class="hospital-row">TETRA: <span>ide kerül</span></div>
+                <a class="hospital-nav"
+                   href="https://www.google.com/maps/dir/?api=1&destination=Városmajori+Szív-+és+Érgyógyászati+Klinika"
+                   target="_blank">Navigáció megnyitása</a>
             </div>
 
         </div>
     </div>
 </div>
 
-<!-- KÓRHÁZAK -->
-<div id="hospitalModalBg" class="modal-bg">
-    <div class="modal-window">
-        <div class="modal-header">
-            Kórházak
-            <div class="modal-close" onclick="closeHospitalModal()">×</div>
-        </div>
-        <iframe class="modal-content" src="korhazak.html"></iframe>
-    </div>
-</div>
-
-<!-- SEGÉDLETEK -->
-<div id="helpModalBg" class="modal-bg">
-    <div class="modal-window">
-        <div class="modal-header">
-            Segédletek
-            <div class="modal-close" onclick="closeHelpModal()">×</div>
-        </div>
-
-        <div id="helpMenu" class="modal-menu">
-            <div class="menu-btn" onclick="openHelpItem('ISBAR')">ISBAR</div>
-            <div class="menu-btn" onclick="openHelpItem('METHAN')">METHAN</div>
-            <div class="menu-btn" onclick="openHelpItem('NORADRENALIN')">Noradrenalin</div>
-            <div class="menu-btn" onclick="openHelpItem('DOBUTAMIN')">Dobutamin</div>
-            <div class="menu-btn" onclick="openHelpItem('RSI')">RSI gyógyszerek</div>
-            <div class="menu-btn" onclick="openHelpItem('RACE')">RACE score</div>
-            <div class="menu-btn" onclick="openHelpItem('WELLS')">Wells score</div>
-            <div class="menu-btn" onclick="openHelpItem('PERC')">PERC score</div>
-        </div>
-
-        <iframe id="helpFrame" class="modal-content" style="display:none;"></iframe>
-    </div>
-</div>
-
-<!-- AKTUÁLIS -->
-<div id="newsModalBg" class="modal-bg">
-    <div class="modal-window">
-        <div class="modal-header">
-            Aktuális hírek
-            <div class="modal-close" onclick="closeNewsModal()">×</div>
-        </div>
-
-        <!-- Itt egyelőre csak egy infó van, később beállíthatod a PDF linket az iframe src-jébe -->
-        <iframe id="newsFrame" class="modal-content" src="" title="Aktuális hírek PDF">
-            <!-- Ha szeretnéd, cseréld ki az src="" részben a linket egy Google Drive PDF URL-re -->
-        </iframe>
-    </div>
-</div>
+<script>
+function openHospitalModal(){
+    document.getElementById("hospitalModalBg").style.display = "flex";
+}
+function closeHospitalModal(){
+    document.getElementById("hospitalModalBg").style.display = "none";
+}
+</script>
 
 </body>
 </html>
