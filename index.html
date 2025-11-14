@@ -109,22 +109,6 @@
         color: inherit;
     }
 
-    /* Badge a csempéken */
-  .badge-parent {
-        position: relative;
-    }
-
-  .badge {
-        position: absolute;
-        top: 6px;
-        right: 10px;
-        width: 12px;
-        height: 12px;
-        background: #ff3b3b;
-        border-radius: 50%;
-        display: none;
-   }
-    
     body.dark .tile {
         background: var(--card-dark);
         box-shadow: 0 2px 10px rgba(0,0,0,0.6);
@@ -145,6 +129,22 @@
         font-weight: 600;
     }
 
+    /* Badge a csempén (Beosztás kérés) */
+    .badge-parent {
+        position: relative;
+    }
+
+    .badge {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        width: 12px;
+        height: 12px;
+        background: #ff3b3b;
+        border-radius: 50%;
+        display: none;
+    }
+
     .footer {
         margin-top: 22px;
         font-size: 11px;
@@ -155,7 +155,7 @@
         color: #999;
     }
 
-    /* MODAL */
+    /* MODAL általános */
     .modal-bg {
         display: none;
         position: fixed;
@@ -210,7 +210,6 @@
         background: transparent;
     }
 
-    /* Checklist / Segédletek / Kocsik menü */
     .modal-menu {
         padding: 16px;
         display: flex;
@@ -295,15 +294,18 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        overflow-y: center;
+        overflow-y: auto;
+        align-items: center;
     }
 
     .hospital-item {
         background: #f7f7f7;
         border-radius: 10px;
         padding: 10px 12px;
-        text-align: center;
+        text-align: left;
         font-size: 14px;
+        max-width: 500px;
+        width: 100%;
     }
 
     body.dark .hospital-item {
@@ -440,7 +442,7 @@
             <div class="tile-label">Beosztás</div>
         </div>
 
-        <div class="tile badge-parent" onclick="openRequestModal()">
+        <div class="tile badge-parent" onclick="openBeosztasKeres()">
             <span id="requestBadge" class="badge"></span>
             <div class="tile-icon">✉️</div>
             <div class="tile-label">Beosztás kérés</div>
@@ -601,8 +603,7 @@
             Aktuális információk
             <div class="modal-close" onclick="closeAktualis()">×</div>
         </div>
-        <iframe id="aktualisFrame" class="modal-content"
-            src="">
+        <iframe id="aktualisFrame" class="modal-content" src="">
         </iframe>
     </div>
 </div>
@@ -615,7 +616,6 @@
             <div class="modal-close" onclick="closeHospitals()">×</div>
         </div>
         <div class="hospital-list">
-
             <div class="hospital-item">
                 <div class="hospital-name">Baleseti Intézet</div>
                 <div class="hospital-row">Telefon: <span>–</span></div>
@@ -771,7 +771,7 @@
                 <div class="hospital-row">Telefon: <span>–</span></div>
                 <div class="hospital-row">TETRA: <span>–</span></div>
                 <a class="hospital-nav" target="_blank"
-                   href="https://www.google.com/maps/dir/?api=1&destination=Városmajor+Szív-+és+Érgyógyászati+Klinika">
+                   href="https://www.google.com/maps/dir/?api=1&destination=Városmajori+Szív-+és+Érgyógyászati+Klinika">
                    Navigáció megnyitása
                 </a>
             </div>
@@ -780,131 +780,6 @@
     </div>
 </div>
 
-<script>
-/* Dark mode */
-function toggleTheme(){
-    document.body.classList.toggle("dark");
-    const isDark = document.body.classList.contains("dark");
-    localStorage.setItem("omsz_theme", isDark ? "dark" : "light");
-    document.getElementById("themeToggle").textContent = isDark ? "☀️" : "🌙";
-}
-
-/* Daily info */
-function updateDailyInfo(){
-    const d = new Date();
-    const day = d.getDay();    // 0=vas, 1=hétfő...
-    const date = d.getDate();
-    let msg = "";
-
-    if(date >= 1 && date <= 10){
-        msg += "📅 Ne felejtsd: beosztás kérést kell küldeni!<br>";
-    }
-
-    if(day === 4) msg += "🧹 Ma: BLS II takarítás.";
-    else if(day === 5) msg += "🧹 Ma: BLS I takarítás.";
-    else if(day === 6) msg += "🧹 Ma: ALS takarítás.";
-    else if(day === 0) msg += "🚮 Ma: garázs takarítás + szemét kivitel.";
-
-    if(msg === "") msg = "Nincs külön kiemelt feladat mára.";
-
-    document.getElementById("dailyInfo").innerHTML = msg;
-}
-
-/* Modal nyit/zár */
-function openBeosztas(){ document.getElementById("beosztasModal").style.display="flex"; }
-function closeBeosztas(){ document.getElementById("beosztasModal").style.display="none"; }
-
-function openBeosztasKeres(){ document.getElementById("beosztasKeresModal").style.display="flex"; }
-function closeBeosztasKeres(){ document.getElementById("beosztasKeresModal").style.display="none"; }
-
-function openChecklist(){
-    document.getElementById("checklistModal").style.display="flex";
-    document.getElementById("checklistMenu").style.display="flex";
-    document.getElementById("checklistFrame").style.display="none";
-    document.getElementById("checklistFrame").src="";
-}
-function closeChecklist(){
-    document.getElementById("checklistModal").style.display="none";
-}
-
-function openCars(){
-    document.getElementById("carsModal").style.display="flex";
-    document.getElementById("carMenu").style.display="flex";
-    document.getElementById("carFrame").style.display="none";
-    document.getElementById("carFrame").src="";
-}
-function closeCars(){
-    document.getElementById("carsModal").style.display="none";
-}
-
-function openPhones(){ document.getElementById("phonesModal").style.display="flex"; }
-function closePhones(){ document.getElementById("phonesModal").style.display="none"; }
-
-function openHelp(){
-    document.getElementById("helpModal").style.display="flex";
-    document.getElementById("helpMenu").style.display="flex";
-    document.getElementById("helpFrame").style.display="none";
-    document.getElementById("helpFrame").src="";
-}
-function closeHelp(){
-    document.getElementById("helpModal").style.display="none";
-}
-
-function openAktualis(){
-    document.getElementById("aktualisModal").style.display="flex";
-    // ide majd beírhatod az aktuális PDF linket:
-    // document.getElementById("aktualisFrame").src = "IDE_A_PDF_LINK";
-}
-function closeAktualis(){
-    document.getElementById("aktualisModal").style.display="none";
-}
-
-function openHospitals(){ document.getElementById("hospitalsModal").style.display="flex"; }
-function closeHospitals(){ document.getElementById("hospitalsModal").style.display="none"; }
-
-/* Checklist formok */
-function openChecklistForm(type){
-    let url = "";
-    if(type === "ALS")
-        url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
-    if(type === "BLS1")
-        url = "https://forms.gle/DC7WjKgj241b6CSz7";
-    if(type === "BLS2")
-        url = "https://forms.gle/iU4PbV9nSBnTboU68";
-
-    document.getElementById("checklistMenu").style.display="none";
-    document.getElementById("checklistFrame").style.display="block";
-    document.getElementById("checklistFrame").src = url;
-}
-
-/* Gépkocsi formok */
-function openCarForm(id){
-    let url = "";
-    if(id === "278") url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
-    if(id === "02")  url = "https://forms.gle/LwaQnVrVjgJ1xmwZ9";
-    if(id === "81")  url = "https://forms.gle/GR18YETWNaJroxsP9";
-    if(id === "25")  url = "https://forms.gle/fqv9RG8Atk8BQGMXA";
-
-    document.getElementById("carMenu").style.display="none";
-    document.getElementById("carFrame").style.display="block";
-    document.getElementById("carFrame").src = url;
-}
-
-/* Segédletek – ide majd saját linkeket tehetsz */
-function openHelpItem(key){
-    let url = "";
-    // IDE ÍRD BE KÉSŐBB A SAJÁT PDF / DOKSI LINKJEIDET
-    // pl.: if(key === "ISBAR") url = "https://drive.google.com/....";
-    alert("Ehhez a segédlethez még nincs beállítva link. A kódban az openHelpItem függvénynél tudod megadni.");
-    return;
-
-    // Ha lesz link:
-    // document.getElementById("helpMenu").style.display="none";
-    // document.getElementById("helpFrame").style.display="block";
-    // document.getElementById("helpFrame").src = url;
-}
-
-/* INIT */
 <script>
 // PIN – 0278
 function checkPIN(){
@@ -951,28 +826,26 @@ function updateDailyInfo(){
     if (el) el.innerHTML = msg;
 }
 
-// BEOSZTÁS MODAL
-function openBeosztas(){ 
+// MODALOK NYIT/ZÁR
+function openBeosztas(){
     const m = document.getElementById("beosztasModal");
     if (m) m.style.display = "flex";
 }
-function closeBeosztas(){ 
+function closeBeosztas(){
     const m = document.getElementById("beosztasModal");
     if (m) m.style.display = "none";
 }
 
-// BEOSZTÁS KÉRÉS MODAL
-function openBeosztasKeres(){ 
+function openBeosztasKeres(){
     const m = document.getElementById("beosztasKeresModal");
     if (m) m.style.display = "flex";
-    markRequestSeen();   // jelvény eltüntetése
+    markRequestSeen();
 }
-function closeBeosztasKeres(){ 
+function closeBeosztasKeres(){
     const m = document.getElementById("beosztasKeresModal");
     if (m) m.style.display = "none";
 }
 
-// CHECKLIST MODAL
 function openChecklist(){
     const bg   = document.getElementById("checklistModal");
     const menu = document.getElementById("checklistMenu");
@@ -988,6 +861,68 @@ function closeChecklist(){
     const bg = document.getElementById("checklistModal");
     if(bg) bg.style.display = "none";
 }
+
+function openCars(){
+    const bg   = document.getElementById("carsModal");
+    const menu = document.getElementById("carMenu");
+    const fr   = document.getElementById("carFrame");
+    if(bg && menu && fr){
+        bg.style.display = "flex";
+        menu.style.display = "flex";
+        fr.style.display = "none";
+        fr.src = "";
+    }
+}
+function closeCars(){
+    const bg = document.getElementById("carsModal");
+    if(bg) bg.style.display = "none";
+}
+
+function openPhones(){
+    const bg = document.getElementById("phonesModal");
+    if(bg) bg.style.display = "flex";
+}
+function closePhones(){
+    const bg = document.getElementById("phonesModal");
+    if(bg) bg.style.display = "none";
+}
+
+function openHelp(){
+    const bg   = document.getElementById("helpModal");
+    const menu = document.getElementById("helpMenu");
+    const fr   = document.getElementById("helpFrame");
+    if(bg && menu && fr){
+        bg.style.display = "flex";
+        menu.style.display = "flex";
+        fr.style.display = "none";
+        fr.src = "";
+    }
+}
+function closeHelp(){
+    const bg = document.getElementById("helpModal");
+    if(bg) bg.style.display = "none";
+}
+
+function openAktualis(){
+    const bg = document.getElementById("aktualisModal");
+    if(bg) bg.style.display = "flex";
+    // ha lesz PDF: document.getElementById("aktualisFrame").src = "IDE_A_LINK";
+}
+function closeAktualis(){
+    const bg = document.getElementById("aktualisModal");
+    if(bg) bg.style.display = "none";
+}
+
+function openHospitals(){
+    const bg = document.getElementById("hospitalsModal");
+    if(bg) bg.style.display = "flex";
+}
+function closeHospitals(){
+    const bg = document.getElementById("hospitalsModal");
+    if(bg) bg.style.display = "none";
+}
+
+// CHECKLIST FORMOK
 function openChecklistForm(type){
     let url = "";
     if(type === "ALS")
@@ -1006,22 +941,7 @@ function openChecklistForm(type){
     }
 }
 
-// GÉPKOCSI MODAL
-function openCars(){
-    const bg   = document.getElementById("carsModal");
-    const menu = document.getElementById("carMenu");
-    const fr   = document.getElementById("carFrame");
-    if(bg && menu && fr){
-        bg.style.display = "flex";
-        menu.style.display = "flex";
-        fr.style.display = "none";
-        fr.src = "";
-    }
-}
-function closeCars(){
-    const bg = document.getElementById("carsModal");
-    if(bg) bg.style.display = "none";
-}
+// GÉPKOCSI FORMOK
 function openCarForm(id){
     let url = "";
     if(id === "278") url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
@@ -1038,76 +958,29 @@ function openCarForm(id){
     }
 }
 
-// TELEFON MODAL
-function openPhones(){
-    const bg = document.getElementById("phonesModal");
-    if(bg) bg.style.display = "flex";
-}
-function closePhones(){
-    const bg = document.getElementById("phonesModal");
-    if(bg) bg.style.display = "none";
-}
-
-// SEGÉDLETEK MODAL
-function openHelp(){
-    const bg   = document.getElementById("helpModal");
-    const menu = document.getElementById("helpMenu");
-    const fr   = document.getElementById("helpFrame");
-    if(bg && menu && fr){
-        bg.style.display = "flex";
-        menu.style.display = "flex";
-        fr.style.display = "none";
-        fr.src = "";
-    }
-}
-function closeHelp(){
-    const bg = document.getElementById("helpModal");
-    if(bg) bg.style.display = "none";
-}
+// SEGÉDLETEK
 function openHelpItem(key){
-    // ide később tehetsz konkrét PDF linkeket
+    // Később ide tehetsz konkrét PDF linkeket:
+    // pl. if (key === "ISBAR") url = "https://drive.google.com/...";
     alert("Ehhez a segédlethez még nincs beállítva link. Az openHelpItem függvénynél tudod megadni.");
     return;
 }
 
-// AKTUÁLIS MODAL
-function openAktualis(){
-    const bg = document.getElementById("aktualisModal");
-    if(bg) bg.style.display = "flex";
-    // ha lesz PDF: document.getElementById("aktualisFrame").src = "IDE_A_LINK";
-}
-function closeAktualis(){
-    const bg = document.getElementById("aktualisModal");
-    if(bg) bg.style.display = "none";
-}
-
-// KÓRHÁZ MODAL
-function openHospitals(){
-    const bg = document.getElementById("hospitalsModal");
-    if(bg) bg.style.display = "flex";
-}
-function closeHospitals(){
-    const bg = document.getElementById("hospitalsModal");
-    if(bg) bg.style.display = "none";
-}
-
-// BEOSZTÁS KÉRÉS – BADGE (piros pötty)
+// BEOSZTÁS KÉRÉS – BADGE
 function updateRequestBadge() {
     const badge = document.getElementById("requestBadge");
     if (!badge) return;
 
     const today = new Date();
     const dayOfMonth = today.getDate();
-    const month = today.getMonth(); // 0–11
+    const month = today.getMonth();
     const stored = localStorage.getItem("request_seen_month");
 
-    // ha már látta ebben a hónapban → nincs pötty
     if (stored !== null && parseInt(stored, 10) === month) {
         badge.style.display = "none";
         return;
     }
 
-    // 1–10. nap között legyen jelzés
     if (dayOfMonth >= 1 && dayOfMonth <= 10) {
         badge.style.display = "block";
     } else {
@@ -1123,13 +996,12 @@ function markRequestSeen() {
     if (badge) badge.style.display = "none";
 }
 
-// (Ha bevezetsz kórház-keresőt, ide tehetünk filterHospitals()-t is.)
-
 // INIT
 document.addEventListener("DOMContentLoaded", function(){
     // téma betöltés
     const saved = localStorage.getItem("omsz_theme");
-    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
     const btn = document.getElementById("themeToggle");
 
     if (saved === "dark" || saved === "light") {
@@ -1159,5 +1031,6 @@ document.addEventListener("DOMContentLoaded", function(){
     updateRequestBadge();
 });
 </script>
+
 </body>
 </html>
