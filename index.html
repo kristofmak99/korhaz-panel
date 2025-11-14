@@ -377,36 +377,17 @@
         font-size: 14px;
         max-width: 500px;
         width: 100%;
-        cursor: pointer;
-        max-height: 58px;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
+    /* NINCS max-height, NINCS overflow, NINCS transition, NINCS cursor:pointer */
     }
 
     body.dark .hospital-item {
         background: #2a2a2a;
     }
 
-    .hospital-item.open {
-        max-height: 260px;
-    }
-
     .hospital-name {
         font-weight: 700;
         margin-bottom: 4px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
-
-    .hospital-name::after {
-        content: "▼";
-        font-size: 11px;
-        opacity: 0.6;
-    }
-
-    .hospital-item.open .hospital-name::after {
-        content: "▲";
     }
 
     .hospital-row {
