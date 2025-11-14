@@ -920,44 +920,258 @@ function openHelpItem(key){
 
 /* INIT */
 <script>
+// PIN – 0278
+function checkPIN(){
+    const input = document.getElementById("pinInput");
+    const err = document.getElementById("pinError");
+    if(input.value === "0278"){
+        document.getElementById("pinOverlay").style.display = "none";
+        err.textContent = "";
+    } else {
+        err.textContent = "Hibás PIN-kód.";
+        input.value = "";
+        input.focus();
+    }
+}
+
+// DARK MODE
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+    localStorage.setItem("omsz_theme", isDark ? "dark" : "light");
+    const btn = document.getElementById("themeToggle");
+    if (btn) btn.textContent = isDark ? "☀️" : "🌙";
+}
+
+// NAPI INFÓ
+function updateDailyInfo(){
+    const d = new Date();
+    const day = d.getDay();   // 0 = vasárnap
+    const date = d.getDate(); // 1–31
+    let msg = "";
+
+    if (date >= 1 && date <= 10) {
+        msg += "📅 Ne felejtsd: beosztás kérést kell küldeni!<br>";
+    }
+
+    if (day === 4)      msg += "🧹 Ma: BLS II takarítás.";
+    else if (day === 5) msg += "🧹 Ma: BLS I takarítás.";
+    else if (day === 6) msg += "🧹 Ma: ALS takarítás.";
+    else if (day === 0) msg += "🚮 Ma: garázs takarítás + szemét kivitel.";
+
+    if (msg === "") msg = "Nincs külön kiemelt feladat mára.";
+
+    const el = document.getElementById("dailyInfo");
+    if (el) el.innerHTML = msg;
+}
+
+// BEOSZTÁS MODAL
+function openBeosztas(){ 
+    const m = document.getElementById("beosztasModal");
+    if (m) m.style.display = "flex";
+}
+function closeBeosztas(){ 
+    const m = document.getElementById("beosztasModal");
+    if (m) m.style.display = "none";
+}
+
+// BEOSZTÁS KÉRÉS MODAL
+function openBeosztasKeres(){ 
+    const m = document.getElementById("beosztasKeresModal");
+    if (m) m.style.display = "flex";
+    markRequestSeen();   // jelvény eltüntetése
+}
+function closeBeosztasKeres(){ 
+    const m = document.getElementById("beosztasKeresModal");
+    if (m) m.style.display = "none";
+}
+
+// CHECKLIST MODAL
+function openChecklist(){
+    const bg   = document.getElementById("checklistModal");
+    const menu = document.getElementById("checklistMenu");
+    const fr   = document.getElementById("checklistFrame");
+    if(bg && menu && fr){
+        bg.style.display = "flex";
+        menu.style.display = "flex";
+        fr.style.display = "none";
+        fr.src = "";
+    }
+}
+function closeChecklist(){
+    const bg = document.getElementById("checklistModal");
+    if(bg) bg.style.display = "none";
+}
+function openChecklistForm(type){
+    let url = "";
+    if(type === "ALS")
+        url = "https://docs.google.com/forms/d/e/1FAIpQLSdean4OH6-C_fIuPyAQlNf01oEGxo1oPW68TVW4lyioEf2ZFQ/viewform?usp=dialog";
+    if(type === "BLS1")
+        url = "https://forms.gle/DC7WjKgj241b6CSz7";
+    if(type === "BLS2")
+        url = "https://forms.gle/iU4PbV9nSBnTboU68";
+
+    const menu = document.getElementById("checklistMenu");
+    const fr   = document.getElementById("checklistFrame");
+    if(menu && fr){
+        menu.style.display = "none";
+        fr.style.display = "block";
+        fr.src = url;
+    }
+}
+
+// GÉPKOCSI MODAL
+function openCars(){
+    const bg   = document.getElementById("carsModal");
+    const menu = document.getElementById("carMenu");
+    const fr   = document.getElementById("carFrame");
+    if(bg && menu && fr){
+        bg.style.display = "flex";
+        menu.style.display = "flex";
+        fr.style.display = "none";
+        fr.src = "";
+    }
+}
+function closeCars(){
+    const bg = document.getElementById("carsModal");
+    if(bg) bg.style.display = "none";
+}
+function openCarForm(id){
+    let url = "";
+    if(id === "278") url = "https://forms.gle/9S9Fe9SsCXeaWpVR7";
+    if(id === "02")  url = "https://forms.gle/LwaQnVrVjgJ1xmwZ9";
+    if(id === "81")  url = "https://forms.gle/GR18YETWNaJroxsP9";
+    if(id === "25")  url = "https://forms.gle/fqv9RG8Atk8BQGMXA";
+
+    const menu = document.getElementById("carMenu");
+    const fr   = document.getElementById("carFrame");
+    if(menu && fr){
+        menu.style.display = "none";
+        fr.style.display = "block";
+        fr.src = url;
+    }
+}
+
+// TELEFON MODAL
+function openPhones(){
+    const bg = document.getElementById("phonesModal");
+    if(bg) bg.style.display = "flex";
+}
+function closePhones(){
+    const bg = document.getElementById("phonesModal");
+    if(bg) bg.style.display = "none";
+}
+
+// SEGÉDLETEK MODAL
+function openHelp(){
+    const bg   = document.getElementById("helpModal");
+    const menu = document.getElementById("helpMenu");
+    const fr   = document.getElementById("helpFrame");
+    if(bg && menu && fr){
+        bg.style.display = "flex";
+        menu.style.display = "flex";
+        fr.style.display = "none";
+        fr.src = "";
+    }
+}
+function closeHelp(){
+    const bg = document.getElementById("helpModal");
+    if(bg) bg.style.display = "none";
+}
+function openHelpItem(key){
+    // ide később tehetsz konkrét PDF linkeket
+    alert("Ehhez a segédlethez még nincs beállítva link. Az openHelpItem függvénynél tudod megadni.");
+    return;
+}
+
+// AKTUÁLIS MODAL
+function openAktualis(){
+    const bg = document.getElementById("aktualisModal");
+    if(bg) bg.style.display = "flex";
+    // ha lesz PDF: document.getElementById("aktualisFrame").src = "IDE_A_LINK";
+}
+function closeAktualis(){
+    const bg = document.getElementById("aktualisModal");
+    if(bg) bg.style.display = "none";
+}
+
+// KÓRHÁZ MODAL
+function openHospitals(){
+    const bg = document.getElementById("hospitalsModal");
+    if(bg) bg.style.display = "flex";
+}
+function closeHospitals(){
+    const bg = document.getElementById("hospitalsModal");
+    if(bg) bg.style.display = "none";
+}
+
+// BEOSZTÁS KÉRÉS – BADGE (piros pötty)
+function updateRequestBadge() {
+    const badge = document.getElementById("requestBadge");
+    if (!badge) return;
+
+    const today = new Date();
+    const dayOfMonth = today.getDate();
+    const month = today.getMonth(); // 0–11
+    const stored = localStorage.getItem("request_seen_month");
+
+    // ha már látta ebben a hónapban → nincs pötty
+    if (stored !== null && parseInt(stored, 10) === month) {
+        badge.style.display = "none";
+        return;
+    }
+
+    // 1–10. nap között legyen jelzés
+    if (dayOfMonth >= 1 && dayOfMonth <= 10) {
+        badge.style.display = "block";
+    } else {
+        badge.style.display = "none";
+    }
+}
+
+function markRequestSeen() {
+    const today = new Date();
+    const month = today.getMonth();
+    localStorage.setItem("request_seen_month", month.toString());
+    const badge = document.getElementById("requestBadge");
+    if (badge) badge.style.display = "none";
+}
+
+// (Ha bevezetsz kórház-keresőt, ide tehetünk filterHospitals()-t is.)
+
+// INIT
 document.addEventListener("DOMContentLoaded", function(){
-    // Téma betöltése
+    // téma betöltés
     const saved = localStorage.getItem("omsz_theme");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const btn = document.getElementById("themeToggle");
 
     if (saved === "dark" || saved === "light") {
-        // Ha a felhasználó már választott, azt tiszteletben tartjuk
         if (saved === "dark") {
             document.body.classList.add("dark");
-            document.getElementById("themeToggle").textContent = "☀️";
+            if (btn) btn.textContent = "☀️";
         } else {
             document.body.classList.remove("dark");
-            document.getElementById("themeToggle").textContent = "🌙";
+            if (btn) btn.textContent = "🌙";
         }
     } else {
-        // NINCS mentett beállítás → kövessük a rendszer témát
-        const prefersDark = window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches;
-
         if (prefersDark) {
             document.body.classList.add("dark");
-            document.getElementById("themeToggle").textContent = "☀️";
+            if (btn) btn.textContent = "☀️";
             localStorage.setItem("omsz_theme", "dark");
         } else {
             document.body.classList.remove("dark");
-            document.getElementById("themeToggle").textContent = "🌙";
+            if (btn) btn.textContent = "🌙";
             localStorage.setItem("omsz_theme", "light");
         }
     }
 
-    // Napi infó frissítése
+    // napi infó
     updateDailyInfo();
+
+    // beosztás kérés jelvény
+    updateRequestBadge();
 });
 </script>
-
-    // Napi infó
-    updateDailyInfo();
-});
-</script>
-
 </body>
 </html>
