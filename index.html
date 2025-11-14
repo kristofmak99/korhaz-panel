@@ -919,13 +919,40 @@ function openHelpItem(key){
 }
 
 /* INIT */
+<script>
 document.addEventListener("DOMContentLoaded", function(){
-    // Theme betöltés
+    // Téma betöltése
     const saved = localStorage.getItem("omsz_theme");
-    if(saved === "dark"){
-        document.body.classList.add("dark");
-        document.getElementById("themeToggle").textContent = "☀️";
+
+    if (saved === "dark" || saved === "light") {
+        // Ha a felhasználó már választott, azt tiszteletben tartjuk
+        if (saved === "dark") {
+            document.body.classList.add("dark");
+            document.getElementById("themeToggle").textContent = "☀️";
+        } else {
+            document.body.classList.remove("dark");
+            document.getElementById("themeToggle").textContent = "🌙";
+        }
+    } else {
+        // NINCS mentett beállítás → kövessük a rendszer témát
+        const prefersDark = window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        if (prefersDark) {
+            document.body.classList.add("dark");
+            document.getElementById("themeToggle").textContent = "☀️";
+            localStorage.setItem("omsz_theme", "dark");
+        } else {
+            document.body.classList.remove("dark");
+            document.getElementById("themeToggle").textContent = "🌙";
+            localStorage.setItem("omsz_theme", "light");
+        }
     }
+
+    // Napi infó frissítése
+    updateDailyInfo();
+});
+</script>
 
     // Napi infó
     updateDailyInfo();
